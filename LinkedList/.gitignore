@@ -1,0 +1,2 @@
+#ignore cpp build directory
+bin/*
