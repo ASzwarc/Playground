@@ -4,8 +4,6 @@ project(LinkedList)
 
 set(PROJECT_NAME LinkedList)
 
-include_directories(src)
-
 add_subdirectory(src)
 
 if (BUILD_TESTS)
