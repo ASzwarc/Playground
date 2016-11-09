@@ -10,13 +10,13 @@ class LinkedList
 {
     public:
         LinkedList();
-        void print();
+        void print() const;
         void insertAtBeginning(T data);
         void insertAtEnd(T data);
         T deleteFirst();
         T deleteLast();
         T deleteByKey();
-        void searchByKey(T data);
+        Node<T> searchByKey(T data);
     private:
         std::unique_ptr<Node<T>> head_;
 };
@@ -24,6 +24,20 @@ class LinkedList
 template<typename T> LinkedList<T>::LinkedList(): head_{nullptr}
 {
     std::cout << "CTOR" << std::endl;
+}
+
+template<typename T> void LinkedList<T>::print() const
+{
+}
+
+template<typename T> void LinkedList<T>::insertAtBeginning(T data)
+{
+    auto newNode = new Node<T>(data);
+    if (head_)
+    {
+        newNode->setNext(head_->getNext());
+    }
+    head_.reset(newNode);
 }
 
 
