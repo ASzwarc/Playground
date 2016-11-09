@@ -1,6 +1,8 @@
 #ifndef NODE_HPP_
 #define NODE_HPP_
 
+#include <memory>
+
 template <typename T>
 class Node
 {
