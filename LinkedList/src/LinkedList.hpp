@@ -28,6 +28,16 @@ template<typename T> LinkedList<T>::LinkedList(): head_{nullptr}
 
 template<typename T> void LinkedList<T>::print() const
 {
+    auto temp = head_.get();
+    std::cout << "Nodes: ";
+    while (temp)
+    {
+        std::cout << temp->getData() << " ";
+        temp = temp->getNext();
+        if (temp)
+            std::cout << "-> ";
+    }
+    std::cout << std::endl;
 }
 
 template<typename T> void LinkedList<T>::insertAtBeginning(T data)

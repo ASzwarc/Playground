@@ -8,5 +8,6 @@ int main(int argc, char* argv[])
     testList.insertAtBeginning(2);
 	testList.insertAtBeginning(3);
     testList.insertAtBeginning(4);
+    testList.print();
     return 0;
 }
