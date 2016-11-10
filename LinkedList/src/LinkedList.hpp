@@ -50,5 +50,14 @@ template<typename T> void LinkedList<T>::insertAtBeginning(T data)
     head_ = std::move(newNode);
 }
 
-
+template<typename T> void LinkedList<T>::insertAtEnd(T data)
+{
+    auto newNode = std::make_unique<Node<T>>(data);
+    auto last = head_.get();
+    while (last->getNext())
+    {
+        last = last->getNext();
+    }
+    last->setNext(newNode.release());
+}
 #endif //ifndef LINKEDLIST_HPP_

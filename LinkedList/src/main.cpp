@@ -9,5 +9,7 @@ int main(int argc, char* argv[])
 	testList.insertAtBeginning(3);
     testList.insertAtBeginning(4);
     testList.print();
+    testList.insertAtEnd(5);
+    testList.print();
     return 0;
 }
