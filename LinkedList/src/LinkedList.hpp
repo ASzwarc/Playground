@@ -72,7 +72,7 @@ template<typename T> T LinkedList<T>::deleteLast()
     {
         newLast = newLast->getNext();
     }
-    std::unique_ptr<Node<T>> deletedNode{newLast->getNext()};
+    auto deletedNode = newLast->getNext();
     newLast->setNext(nullptr);
     return deletedNode->getData();
 }

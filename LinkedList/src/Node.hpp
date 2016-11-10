@@ -31,8 +31,6 @@ T Node<T>::getData() const
 template<typename T> 
 void Node<T>::setNext(Node<T>* next)
 {
-    std::cout << __PRETTY_FUNCTION__ << " setting next node: " << next->getData()
-              << std::endl;
     next_.reset(next);
 }
 
