@@ -11,5 +11,7 @@ int main(int argc, char* argv[])
     testList.print();
     testList.insertAtEnd(5);
     testList.print();
+    testList.deleteLast();
+    testList.print();
     return 0;
 }
