@@ -39,9 +39,18 @@ void Node<T>::setNext(Node<T>* next)
 template<typename T> 
 Node<T>* Node<T>::getNext()
 {
-    std::cout << __PRETTY_FUNCTION__ << " getting next node: " << next_->getData()
-              << std::endl;
-    return next_.get();
+    if(next_)
+    {
+        std::cout << __PRETTY_FUNCTION__ << " getting next node: " << next_->getData()
+                  << std::endl;
+        return next_.get();
+    }
+    else
+    {
+        std::cout << __PRETTY_FUNCTION__ << " next node is empty, returning nullptr" 
+                  << std::endl;
+        return nullptr;
+    }    
 }
 
 

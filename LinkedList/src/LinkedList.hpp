@@ -32,12 +32,12 @@ template<typename T> void LinkedList<T>::print() const
 
 template<typename T> void LinkedList<T>::insertAtBeginning(T data)
 {
-    auto newNode = new Node<T>(data);
+    auto newNode = std::make_unique<Node<T>>(data);
     if (head_)
     {
-        newNode->setNext(head_->getNext());
+        newNode->setNext(head_.release());
     }
-    head_.reset(newNode);
+    head_ = std::move(newNode);
 }
 
 
