@@ -8,6 +8,7 @@ class Node
 {
     public:
         Node(T data);
+        ~Node();
         T getData() const;
         void setNext(Node<T>* next);
         Node<T>* getNext();
@@ -18,6 +19,12 @@ class Node
 
 template<typename T> 
 Node<T>::Node(T data): data_{data}, next_{nullptr}
+{
+    std::cout << __PRETTY_FUNCTION__ << " data " << data_ << std::endl;
+}
+
+template<typename T>
+Node<T>::~Node()
 {
     std::cout << __PRETTY_FUNCTION__ << " data " << data_ << std::endl;
 }

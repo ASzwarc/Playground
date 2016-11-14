@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     testList.print();
     testList.insertAtEnd(5);
     testList.print();
-    testList.deleteLast();
+    std::cout << "Deleted node: " << testList.deleteLast() << std::endl;
     testList.print();
     return 0;
 }

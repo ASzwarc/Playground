@@ -72,8 +72,8 @@ template<typename T> T LinkedList<T>::deleteLast()
     {
         newLast = newLast->getNext();
     }
-    auto deletedNode = newLast->getNext();
+    auto deletedNodeData = newLast->getNext()->getData();
     newLast->setNext(nullptr);
-    return deletedNode->getData();
+    return deletedNodeData;
 }
 #endif //ifndef LINKEDLIST_HPP_
