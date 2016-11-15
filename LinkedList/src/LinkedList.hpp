@@ -63,6 +63,9 @@ template<typename T> void LinkedList<T>::insertAtEnd(T data)
 
 template<typename T> T LinkedList<T>::deleteFirst()
 {
+    auto headData = head_->getData();
+    head_ = std::move(head_->getManagedNext());
+    return headData;
 }
 
 template<typename T> T LinkedList<T>::deleteLast()

@@ -17,5 +17,7 @@ int main(int argc, char* argv[])
         std::cout << "Node exists" << std::endl;
     else
         std::cout << "Couldn't find node" << std::endl;
+    std::cout << "Deleted node: " << testList.deleteFirst() << std::endl;
+    testList.print();
     return 0;
 }

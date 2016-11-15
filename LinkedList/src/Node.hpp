@@ -12,6 +12,7 @@ class Node
         T getData() const;
         void setNext(Node<T>* next);
         Node<T>* getNext();
+        std::unique_ptr<Node<T>> getManagedNext();
     private:
         T data_;
         std::unique_ptr<Node<T>> next_;
@@ -44,10 +45,13 @@ void Node<T>::setNext(Node<T>* next)
 template<typename T> 
 Node<T>* Node<T>::getNext()
 {
-    if(next_)
-        return next_.get();
-    else
-        return nullptr;
+    return next_.get();
+}
+
+template<typename T>
+std::unique_ptr<Node<T>> Node<T>::getManagedNext()
+{
+    return std::move(next_);
 }
 
 
