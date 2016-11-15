@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <iostream>
+#include <stdexcept>
 #include "Node.hpp"
 
 template<typename T>
@@ -15,7 +16,7 @@ class LinkedList
         void insertAtEnd(T data);
         T deleteFirst();
         T deleteLast();
-        T deleteByKey(T data);
+        bool deleteByKey(T key);
         bool searchByKey(T key);
     private:
         std::unique_ptr<Node<T>> head_;
@@ -63,13 +64,17 @@ template<typename T> void LinkedList<T>::insertAtEnd(T data)
 
 template<typename T> T LinkedList<T>::deleteFirst()
 {
+    if(!head_)
+        throw std::range_error("List is empty!");
     auto headData = head_->getData();
-    head_ = std::move(head_->getManagedNext());
+    head_ = head_->getManagedNext();
     return headData;
 }
 
 template<typename T> T LinkedList<T>::deleteLast()
 {
+    if(!head_)
+        throw std::range_error("List is empty!");
     auto newLast = head_.get();
     while(newLast->getNext()->getNext())
     {
@@ -78,6 +83,11 @@ template<typename T> T LinkedList<T>::deleteLast()
     auto deletedNodeData = newLast->getNext()->getData();
     newLast->setNext(nullptr);
     return deletedNodeData;
+}
+
+template<typename T> bool LinkedList<T>::deleteByKey(T key)
+{
+    return true;
 }
 
 template<typename T> bool LinkedList<T>::searchByKey(T key)
