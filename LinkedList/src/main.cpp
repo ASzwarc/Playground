@@ -13,5 +13,9 @@ int main(int argc, char* argv[])
     testList.print();
     std::cout << "Deleted node: " << testList.deleteLast() << std::endl;
     testList.print();
+    if (testList.searchByKey(2))
+        std::cout << "Node exists" << std::endl;
+    else
+        std::cout << "Couldn't find node" << std::endl;
     return 0;
 }

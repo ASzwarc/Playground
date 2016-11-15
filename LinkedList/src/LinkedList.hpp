@@ -16,7 +16,7 @@ class LinkedList
         T deleteFirst();
         T deleteLast();
         T deleteByKey(T data);
-        Node<T> searchByKey(T data);
+        bool searchByKey(T key);
     private:
         std::unique_ptr<Node<T>> head_;
 };
@@ -75,5 +75,18 @@ template<typename T> T LinkedList<T>::deleteLast()
     auto deletedNodeData = newLast->getNext()->getData();
     newLast->setNext(nullptr);
     return deletedNodeData;
+}
+
+template<typename T> bool LinkedList<T>::searchByKey(T key)
+{
+    auto temp = head_.get();
+    while (temp)
+    {
+        if (temp->getData() == key)
+            return true;
+        else
+            temp = temp->getNext();
+    }
+    return false;
 }
 #endif //ifndef LINKEDLIST_HPP_
