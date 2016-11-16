@@ -12,8 +12,8 @@ class LinkedList
     public:
         LinkedList();
         void print() const;
-        void insertAtBeginning(T data);
-        void insertAtEnd(T data);
+        void insertFirst(T data);
+        void insertLast(T data);
         T deleteFirst();
         T deleteLast();
         bool deleteByKey(T key);
@@ -42,7 +42,7 @@ template<typename T> void LinkedList<T>::print() const
     std::cout << std::endl;
 }
 
-template<typename T> void LinkedList<T>::insertAtBeginning(T data)
+template<typename T> void LinkedList<T>::insertFirst(T data)
 {
     auto newNode = std::make_unique<Node<T>>(data);
     if (head_)
@@ -53,7 +53,7 @@ template<typename T> void LinkedList<T>::insertAtBeginning(T data)
     size_++;
 }
 
-template<typename T> void LinkedList<T>::insertAtEnd(T data)
+template<typename T> void LinkedList<T>::insertLast(T data)
 {
     auto newNode = std::make_unique<Node<T>>(data);
     auto last = head_.get();
