@@ -36,6 +36,37 @@ TEST_F(LinkedListShould, insertAndDeleteNodeAtTheEnd)
     ASSERT_TRUE(sut_.size() == 0);
 }
 
+TEST_F(LinkedListShould, throwExceptionIfDeleteOnEmptyList)
+{
+    EXPECT_THROW(sut_.deleteFirst(), std::range_error);
+    EXPECT_THROW(sut_.deleteLast(), std::range_error);
+}
+
+TEST_F(LinkedListShould, findNodeByKey)
+{
+    int someData = 2;
+    int someOtherData = 5;
+    ASSERT_FALSE(sut_.searchByKey(someData));
+    sut_.insertLast(someData);
+    ASSERT_TRUE(sut_.searchByKey(someData));
+    sut_.insertFirst(someOtherData);
+    ASSERT_TRUE(sut_.searchByKey(someData));
+}
+
+TEST_F(LinkedListShould, deleteNodeByKey)
+{
+    int someData = 2;
+    int someOtherData = 5;
+    int dataNotInList = 0;
+    ASSERT_FALSE(sut_.deleteByKey(someData));
+    sut_.insertLast(someData);
+    ASSERT_TRUE(sut_.deleteByKey(someData));
+    sut_.insertLast(someData);
+    sut_.insertFirst(someOtherData);
+    ASSERT_TRUE(sut_.deleteByKey(someData));
+    ASSERT_FALSE(sut_.deleteByKey(dataNotInList));
+}
+
 
 
 
