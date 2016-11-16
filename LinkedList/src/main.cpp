@@ -11,7 +11,6 @@ int main(int argc, char* argv[])
     testList.print();
     testList.insertAtEnd(5);
     testList.print();
-    testList.print();
     std::cout << "Deleted node: " << testList.deleteLast() << std::endl;
     testList.print();
     if (testList.searchByKey(2))

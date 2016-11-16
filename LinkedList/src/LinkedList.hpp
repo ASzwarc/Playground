@@ -133,7 +133,7 @@ template<typename T> bool LinkedList<T>::searchByKey(T key)
     return false;
 }
 
-template<typename T> int LinkedList<T>::size()
+template<typename T> unsigned int LinkedList<T>::size()
 {
     return size_;
 }
