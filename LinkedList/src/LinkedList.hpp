@@ -87,7 +87,27 @@ template<typename T> T LinkedList<T>::deleteLast()
 
 template<typename T> bool LinkedList<T>::deleteByKey(T key)
 {
-    return true;
+    auto temp = head_.get();
+
+    if (temp->getData() == key)
+    {
+        this->deleteFirst();
+        return true;
+    }
+    while (temp->getNext())
+    {
+        if (temp->getNext()->getData() == key)
+        {
+            auto tempNode = temp->getNext()->getManagedNext();
+            temp->setNext(tempNode.release());
+            return true;    
+        }
+        else
+        {
+            temp = temp->getNext();
+        }
+    }
+    return false;
 }
 
 template<typename T> bool LinkedList<T>::searchByKey(T key)
