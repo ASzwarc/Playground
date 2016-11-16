@@ -18,11 +18,13 @@ class LinkedList
         T deleteLast();
         bool deleteByKey(T key);
         bool searchByKey(T key);
+        int size();
     private:
         std::unique_ptr<Node<T>> head_;
+        int size_;
 };
 
-template<typename T> LinkedList<T>::LinkedList(): head_{nullptr}
+template<typename T> LinkedList<T>::LinkedList(): head_{nullptr}, size_{0}
 {
     std::cout << "CTOR" << std::endl;
 }
@@ -121,5 +123,10 @@ template<typename T> bool LinkedList<T>::searchByKey(T key)
             temp = temp->getNext();
     }
     return false;
+}
+
+template<typename T> int LinkedList<T>::size()
+{
+    return size_;
 }
 #endif //ifndef LINKEDLIST_HPP_

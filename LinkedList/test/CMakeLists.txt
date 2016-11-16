@@ -1,22 +1,16 @@
-set(SUT_DIR ${CMAKE_SOURCE_DIR}/src)
-
 find_package(GTest REQUIRED)
 
-set(SUT_SRC
-	${SUT_DIR}/
+set(SUT_DIR
+    ${CMAKE_SOURCE_DIR}/src
     )
 
-set(TEST_SRC
-)
-
 add_executable(LinkedList_UT
-	${TEST_SRC}
-	${SUT_SRC}
+    LinkedListTests.cpp
 )
 
 include_directories(
-	${SUT_DIR}
     ${GTEST_INCLUDE_DIRS}
+    ${SUT_DIR}
 )
 
 target_link_libraries(
