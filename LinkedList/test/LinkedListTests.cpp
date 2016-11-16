@@ -8,6 +8,8 @@ protected:
     {}
     
     LinkedList<int> sut_;
+    int someData_ {1};
+    int someOtherData_ {2};
 };
 
 
@@ -18,21 +20,19 @@ TEST_F(LinkedListShould, BeIntiallyEmpty)
 
 TEST_F(LinkedListShould, insertAndDeleteNodeAtTheBeginning)
 {
-    int dataToAdd = 1;
-    sut_.insertFirst(dataToAdd);
+    sut_.insertFirst(someData_);
     ASSERT_EQ(sut_.size(), 1);
     int deletedData = sut_.deleteFirst();
-    ASSERT_EQ(dataToAdd, deletedData);
+    ASSERT_EQ(someData_, deletedData);
     ASSERT_TRUE(sut_.size() == 0);
 }
 
 TEST_F(LinkedListShould, insertAndDeleteNodeAtTheEnd)
 {
-    int dataToAdd = 2;
-    sut_.insertLast(dataToAdd);
+    sut_.insertLast(someData_);
     ASSERT_EQ(sut_.size(), 1);
     int deletedData = sut_.deleteLast();
-    ASSERT_EQ(dataToAdd, deletedData);
+    ASSERT_EQ(someData_, deletedData);
     ASSERT_TRUE(sut_.size() == 0);
 }
 
@@ -42,35 +42,45 @@ TEST_F(LinkedListShould, throwExceptionIfDeleteOnEmptyList)
     EXPECT_THROW(sut_.deleteLast(), std::range_error);
 }
 
-TEST_F(LinkedListShould, findNodeByKey)
+TEST_F(LinkedListShould, returnFalseIfFindOnEmptyList)
 {
-    int someData = 2;
-    int someOtherData = 5;
-    ASSERT_FALSE(sut_.searchByKey(someData));
-    sut_.insertLast(someData);
-    ASSERT_TRUE(sut_.searchByKey(someData));
-    sut_.insertFirst(someOtherData);
-    ASSERT_TRUE(sut_.searchByKey(someData));
+    ASSERT_FALSE(sut_.searchByKey(someData_));
 }
 
-TEST_F(LinkedListShould, deleteNodeByKey)
+TEST_F(LinkedListShould, returnTrueIfNodeFoundInList)
 {
-    int someData = 2;
-    int someOtherData = 5;
-    int dataNotInList = 0;
-    ASSERT_FALSE(sut_.deleteByKey(someData));
+    sut_.insertLast(someData_);
+    ASSERT_TRUE(sut_.searchByKey(someData_));
+}
+
+TEST_F(LinkedListShould, returnFalseIfNodeNotFoundInNonEmptyList)
+{
+    int dataToFound {10};
+    sut_.insertLast(someData_);
+    sut_.insertLast(someOtherData_);
+    ASSERT_FALSE(sut_.searchByKey(dataToFound));
+}
+
+TEST_F(LinkedListShould, returnFalseIfDeleteOnEmptyList)
+{
+    ASSERT_FALSE(sut_.deleteByKey(someData_));
     ASSERT_TRUE(sut_.size() == 0);
-    sut_.insertLast(someData);
-    ASSERT_TRUE(sut_.deleteByKey(someData));
+}
+
+TEST_F(LinkedListShould, returnTrueIfDeletedRequestedNode)
+{
+    sut_.insertLast(someData_);
+    ASSERT_TRUE(sut_.deleteByKey(someData_));
     ASSERT_TRUE(sut_.size() == 0);
-    sut_.insertLast(someData);
-    sut_.insertFirst(someOtherData);
-    ASSERT_TRUE(sut_.deleteByKey(someData));
-    ASSERT_TRUE(sut_.size() == 1);
+}
+
+TEST_F(LinkedListShould, returnFalseIfRequestedNodeIsNotInList)
+{
+    int dataNotInList {10};
+    sut_.insertLast(someData_);
+    sut_.insertFirst(someOtherData_);
     ASSERT_FALSE(sut_.deleteByKey(dataNotInList));
-    ASSERT_TRUE(sut_.size() == 1);
+    ASSERT_EQ(sut_.size(), 2);
 }
-
-
 
 
