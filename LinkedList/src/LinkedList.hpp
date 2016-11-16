@@ -18,15 +18,14 @@ class LinkedList
         T deleteLast();
         bool deleteByKey(T key);
         bool searchByKey(T key);
-        int size();
+        unsigned int size();
     private:
         std::unique_ptr<Node<T>> head_;
-        int size_;
+        unsigned int size_;
 };
 
 template<typename T> LinkedList<T>::LinkedList(): head_{nullptr}, size_{0}
 {
-    std::cout << "CTOR" << std::endl;
 }
 
 template<typename T> void LinkedList<T>::print() const
@@ -51,6 +50,7 @@ template<typename T> void LinkedList<T>::insertAtBeginning(T data)
         newNode->setNext(head_.release());
     }
     head_ = std::move(newNode);
+    size_++;
 }
 
 template<typename T> void LinkedList<T>::insertAtEnd(T data)
@@ -62,6 +62,7 @@ template<typename T> void LinkedList<T>::insertAtEnd(T data)
         last = last->getNext();
     }
     last->setNext(newNode.release());
+    size_++;
 }
 
 template<typename T> T LinkedList<T>::deleteFirst()
@@ -70,6 +71,7 @@ template<typename T> T LinkedList<T>::deleteFirst()
         throw std::range_error("List is empty!");
     auto headData = head_->getData();
     head_ = head_->getManagedNext();
+    size_--;
     return headData;
 }
 
@@ -84,16 +86,21 @@ template<typename T> T LinkedList<T>::deleteLast()
     }
     auto deletedNodeData = newLast->getNext()->getData();
     newLast->setNext(nullptr);
+    size_--;
     return deletedNodeData;
 }
 
 template<typename T> bool LinkedList<T>::deleteByKey(T key)
 {
+    if(!head_)
+        return false;
+
     auto temp = head_.get();
 
     if (temp->getData() == key)
     {
         this->deleteFirst();
+
         return true;
     }
     while (temp->getNext())
@@ -102,6 +109,7 @@ template<typename T> bool LinkedList<T>::deleteByKey(T key)
         {
             auto tempNode = temp->getNext()->getManagedNext();
             temp->setNext(tempNode.release());
+            size_--;
             return true;    
         }
         else
