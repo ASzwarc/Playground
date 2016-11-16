@@ -56,6 +56,12 @@ template<typename T> void LinkedList<T>::insertFirst(T data)
 template<typename T> void LinkedList<T>::insertLast(T data)
 {
     auto newNode = std::make_unique<Node<T>>(data);
+    if (!head_)
+    {
+        head_ = std::move(newNode);
+        size_++;
+        return;
+    }
     auto last = head_.get();
     while (last->getNext())
     {
@@ -67,7 +73,7 @@ template<typename T> void LinkedList<T>::insertLast(T data)
 
 template<typename T> T LinkedList<T>::deleteFirst()
 {
-    if(!head_)
+    if (!head_)
         throw std::range_error("List is empty!");
     auto headData = head_->getData();
     head_ = head_->getManagedNext();
@@ -77,10 +83,17 @@ template<typename T> T LinkedList<T>::deleteFirst()
 
 template<typename T> T LinkedList<T>::deleteLast()
 {
-    if(!head_)
+    if (!head_)
         throw std::range_error("List is empty!");
     auto newLast = head_.get();
-    while(newLast->getNext()->getNext())
+    if (newLast->getNext() == nullptr)
+    {
+        auto deletedNodeData = head_->getData();
+        head_.reset();
+        size_--;
+        return deletedNodeData;
+    }
+    while (newLast->getNext()->getNext())
     {
         newLast = newLast->getNext();
     }
