@@ -59,12 +59,16 @@ TEST_F(LinkedListShould, deleteNodeByKey)
     int someOtherData = 5;
     int dataNotInList = 0;
     ASSERT_FALSE(sut_.deleteByKey(someData));
+    ASSERT_TRUE(sut_.size() == 0);
     sut_.insertLast(someData);
     ASSERT_TRUE(sut_.deleteByKey(someData));
+    ASSERT_TRUE(sut_.size() == 0);
     sut_.insertLast(someData);
     sut_.insertFirst(someOtherData);
     ASSERT_TRUE(sut_.deleteByKey(someData));
+    ASSERT_TRUE(sut_.size() == 1);
     ASSERT_FALSE(sut_.deleteByKey(dataNotInList));
+    ASSERT_TRUE(sut_.size() == 1);
 }
 
 
