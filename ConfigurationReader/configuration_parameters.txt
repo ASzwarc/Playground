@@ -1,3 +1,0 @@
-aircondintionParameter = true
-fanSpeed = asda
-anotherFanSpeed = 2
