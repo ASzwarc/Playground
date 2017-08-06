@@ -30,6 +30,8 @@ void execute(int func(Args...), Args... args)
 template<typename Function, typename...Args>
 void execute2(Function func, Args... args)
 {
+    typedef typename std::result_of<Function(Args...)>::type ReturnType;
+    static_assert(std::is_integral<ReturnType>::value, "Function should return integral type!");
     int returnCode = func(args...);
     std::cout << returnCode << std::endl;
 }
@@ -67,7 +69,10 @@ int main() {
 
     execute2(failed_function);
     */
-    /*This will do quite conversion from double to int*/
+    /*This will do quiet conversion from double to int*/
+    /*After adding static assert this won't compile, it would be better
+      to do some sfinae
     execute2(failed_something);
+    */
 	return 0;
 }
