@@ -36,6 +36,16 @@ void execute2(Function func, Args... args)
     std::cout << returnCode << std::endl;
 }
 
+template<typename Arg>
+using returns_bool = typename std::is_same<typename std::result_of<Arg>::type, bool>;
+
+template<typename Function, typename ...Args, std::enable_if<returns_bool<Function(Args...)>::value>>
+void execute3(Function func, Args... args)
+{
+    bool returnCode = func(args...);
+    std::cout << std::boolalpha << returnCode << std::endl;
+}
+
 void failed_function()
 {
     std::cout << "Failed function!" << std::endl;
@@ -44,6 +54,12 @@ void failed_function()
 double failed_something()
 {
     return 3.0;
+}
+
+bool should_work(int param1)
+{
+    std::cout << "Should work" << std::endl;
+    return true;
 }
 
 int main() {
@@ -55,6 +71,10 @@ int main() {
 	execute2(func1, 2);
 	execute2(func2, 3, 4);
 	execute2(func3, 5, 6, 7);
+
+    std::cout << "Fun with enable if" << std::endl;
+
+    execute3(should_work, 1);
 
     std::cout << "Failed examples" << std::endl;
     /*This wont compile because signatures are wrong
