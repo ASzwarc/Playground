@@ -36,14 +36,30 @@ void execute2(Function func, Args... args)
     std::cout << returnCode << std::endl;
 }
 
-template<typename Arg>
-using returns_bool = typename std::is_same<typename std::result_of<Arg>::type, bool>;
+template<typename Arg, typename Type>
+using returns_type = typename std::is_same<typename std::result_of<Arg>::type, Type>;
 
-template<typename Function, typename ...Args, std::enable_if<returns_bool<Function(Args...)>::value>>
-void execute3(Function func, Args... args)
+template<typename Function, typename ...Args>
+typename std::enable_if<returns_type<Function(Args...), bool>::value , bool>::type
+execute3(Function func, Args... args)
 {
     bool returnCode = func(args...);
     std::cout << std::boolalpha << returnCode << std::endl;
+    return returnCode;
+}
+
+template<typename Function, typename ...Args>
+typename std::enable_if<returns_type<Function(Args...), void>::value, void>::type
+execute3(Function func, Args... args)
+{
+    func(args...);
+}
+
+template<typename Function, typename ...Args, typename = std::enable_if_t<returns_type<Function(Args...), double>::value>>
+void execute4(Function func, Args... args)
+{
+    func(args...);
+    std::cout << "Execute4 was invoked" << std::endl;
 }
 
 void failed_function()
@@ -75,8 +91,20 @@ int main() {
     std::cout << "Fun with enable if" << std::endl;
 
     execute3(should_work, 1);
+    execute3(failed_function);
+    
+    execute4(failed_something);
 
     std::cout << "Failed examples" << std::endl;
+
+    /*This example wont work as expected
+    execute3(failed_something);
+    */
+
+    /*This example wont work because there is no specialization for type that returns void
+    execute4(failed_function);
+    */
+
     /*This wont compile because signatures are wrong
     execute(failed_function);
     */
